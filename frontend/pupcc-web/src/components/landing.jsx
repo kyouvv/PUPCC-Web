@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import '../output.css';
 import PUPCCLogo from '../assets/PUPCC-Logo.png';
-import '../fonts.css';
 import { FaFacebook, FaDiscord } from "react-icons/fa6";
 import SearchBar from "./searchbar";
 

@@ -1,7 +1,6 @@
 // App.jsx
 import React, { useState, useEffect } from 'react';
 import './output.css';
-import './fonts.css';
 import Landing from './components/landing.jsx';
 
 function App() {
