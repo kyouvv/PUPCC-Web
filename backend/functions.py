@@ -13,6 +13,8 @@ SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 # Load credentials from environment variable
 creds_json = os.getenv('CREDENTIALS')
 
+print(creds_json)
+
 def write_credentials_json(credentials):
     with open('credentials.json', 'w') as outfile:
         json.dump(credentials, outfile)
