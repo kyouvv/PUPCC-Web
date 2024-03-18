@@ -12,6 +12,7 @@ SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 
 # Load credentials from environment variable
 creds_json = os.getenv('CREDENTIALS')
+print(creds_json)
 
 def authenticate():
     creds = None
