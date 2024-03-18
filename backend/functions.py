@@ -12,7 +12,6 @@ SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 
 # Load credentials from environment variable
 creds_json = os.getenv('CREDENTIALS')
-print(creds_json)
 
 def authenticate():
     creds = None
@@ -25,7 +24,7 @@ def authenticate():
             creds.refresh(Request())
         
         else:
-            creds_ = json.loads(creds_json)
+            creds_ = str(json.loads(creds_json))
             flow = InstalledAppFlow.from_client_secrets_file(
                 creds_, SCOPE
             )
