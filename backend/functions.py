@@ -17,7 +17,7 @@ def authenticate():
         with open(os.path.abspath('/etc/secrets/TOKEN'), 'r') as f:
             data = f.read()
             with open("token.json", "w") as token:
-                token.write(data.to_json())
+                token.write(data)
                 creds = Credentials.from_authorized_user_file("token.json", SCOPE)
 
     if not creds or not creds.valid:
