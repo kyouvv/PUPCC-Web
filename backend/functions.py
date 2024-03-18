@@ -41,7 +41,7 @@ def getOrgs():
         service = build('sheets', 'v4', credentials=creds)
 
         # Define the range to retrieve data from (assuming data starts from A1)
-        range_ = "PUP_Orgs!A:D"
+        range_ = "PUP_Orgs!A:E"
         # Call the Sheets API to get values from the specified range
         result = service.spreadsheets().values().get(
         spreadsheetId=SHEETS_ID, range=range_).execute()
@@ -52,6 +52,7 @@ def getOrgs():
         data = []
         if values:
             for row in values:
+                print(row)
                 if len(row) >= 4:
                     data.append({'name': row[0], 'description' : row[1], 'social': row[2], 'image' : row[3], 'category': row[4]})
                 else:
