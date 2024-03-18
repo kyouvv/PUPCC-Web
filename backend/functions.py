@@ -14,7 +14,11 @@ def authenticate():
     creds = None
 
     if 'CREDENTIALS' in os.environ:
-        creds = Credentials.from_authorized_user_info(json.loads(os.environ['CREDENTIALS']), SCOPE)
+        creds_json = json.loads(os.environ['CREDENTIALS'])
+
+
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file("token.json", SCOPE)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -22,7 +26,7 @@ def authenticate():
         
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                "credentials.json", SCOPE
+                creds_json, SCOPE
             )
             creds = flow.run_local_server(port=0)
 
