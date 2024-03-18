@@ -53,7 +53,7 @@ def getOrgs():
         if values:
             for row in values:
                 if len(row) >= 4:
-                    data.append({'name': row[0], 'description' : row[1], 'social': row[2], 'image' : row[3]})
+                    data.append({'name': row[0], 'description' : row[1], 'social': row[2], 'image' : row[3], 'category': row[4]})
                 else:
                     print(f"Incomplete data for row: {row}")
             return data

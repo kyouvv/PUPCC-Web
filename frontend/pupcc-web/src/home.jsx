@@ -1,21 +1,26 @@
+// App.jsx
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
 import './output.css';
 import Landing from './components/landing.jsx';
 import LoadingScreen from './components/loading.jsx';
+import { AnimatePresence } from 'framer-motion';
+import Org_Card from './components/org_card.jsx';
 
 function App() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchData().then(apiData => {
-            setData(apiData);
-            setLoading(false);
-        }).catch(error => {
-            console.error('Error fetching data:', error);
-            setLoading(false);
-        });
+        let timeout; // Declare timeout variable
+        fetchData()
+            .then(apiData => {
+                setData(apiData);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
     }, []);
 
     const fetchData = async () => {
@@ -25,7 +30,7 @@ function App() {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            console.log(data);
+            console.log(data)
             return data;
         } catch (error) {
             throw new Error('Error fetching data:', error);
@@ -33,13 +38,12 @@ function App() {
     };
 
     return (
-        <AnimatePresence> {/* Use exitBeforeEnter option here */}
-            {loading ? (
-                <LoadingScreen key="loading" />
-            ) : (
-                <Landing key="landing" data={data}></Landing>
-            )}
-        </AnimatePresence>
+        <>
+            <AnimatePresence mode='wait'>
+                {loading ? <LoadingScreen key="loading" /> : <Landing data={data}/>}
+            </AnimatePresence>
+            
+        </>
     );
 }
 
