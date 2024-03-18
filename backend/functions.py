@@ -12,13 +12,9 @@ SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 
 def authenticate():
     creds = None
-
-    if os.path.exists(os.path.abspath('/etc/secrets/TOKEN')):
-        with open(os.path.abspath('/etc/secrets/TOKEN'), 'r') as f:
-            data = f.read()
-            with open("token.json", "w") as token:
-                token.write(data)
-                creds = Credentials.from_authorized_user_file("token.json", SCOPE)
+    print(os.path.exists('/etc/secrets/TOKEN'))
+    if os.path.exists('/etc/secrets/TOKEN'):
+        creds = Credentials.from_authorized_user_file("TOKEN", SCOPE)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
