@@ -18,8 +18,11 @@ This Flask application provides backend functionality for managing organizations
 ### Functions
 1. **`authenticate()`**: Authenticates with Google Sheets API using OAuth2 credentials.
 2. **`get_service(service_name, version, creds)`**: Returns a service object for the specified Google API.
-3. **`getOrgs()`**: Retrieves organization data from Google Sheets and returns it as a list of dictionaries.
+3. **`getOrgs()`**: Retrieves organization data from Google Sheets and returns it as a list of dictionaries. (json)
 4. **`addOrg(name, description, social_link, image_link)`**: Adds a new organization to Google Sheets.
+
+## Database
+We utilized Google Sheets API for easy editing of information.
 
 ## `main.py`
 ### Dependencies
