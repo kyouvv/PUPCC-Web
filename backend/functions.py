@@ -1,5 +1,4 @@
-import os
-import json
+import os, json
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -14,8 +13,8 @@ SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 def authenticate():
     creds = None
 
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file("token.json", SCOPE)
+    if 'CREDENTIALS' in os.environ:
+        creds = Credentials.from_authorized_user_info(json.loads(os.environ['CREDENTIALS']), SCOPE)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
