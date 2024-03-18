@@ -13,8 +13,14 @@ SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 # Load credentials from environment variable
 creds_json = os.getenv('CREDENTIALS')
 
+def write_credentials_json(credentials):
+    with open('credentials.json', 'w') as outfile:
+        json.dump(credentials, outfile)
+
 def authenticate():
     creds = None
+
+    write_credentials_json(creds_json)
 
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file("token.json", SCOPE)
@@ -24,15 +30,14 @@ def authenticate():
             creds.refresh(Request())
         
         else:
-            creds_ = str(json.loads(creds_json))
-            flow = InstalledAppFlow.from_client_secrets_file(
-                creds_, SCOPE
+            flow = InstalledAppFlow.from_client_config(
+                'credentials.json', SCOPE
             )
             creds = flow.run_local_server(port=0)
 
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
-
+            
     return creds
 
 def get_service(service_name, version, creds):
