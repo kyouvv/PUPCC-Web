@@ -11,18 +11,18 @@ SCOPE = ['https://www.googleapis.com/auth/spreadsheets']
 SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 
 # Load credentials from environment variable
-creds_json = os.getenv('CREDENTIALS')
 
-print(creds_json)
 
-def write_credentials_json(credentials):
+def write_credentials_json():
     with open('credentials.json', 'w') as outfile:
-        json.dump(credentials, outfile)
+        creds_json = os.getenv('CREDENTIALS')
+        print(creds_json)
+        json.dump(creds_json, outfile)
 
 def authenticate():
     creds = None
 
-    write_credentials_json(creds_json)
+    write_credentials_json()
 
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file("token.json", SCOPE)
