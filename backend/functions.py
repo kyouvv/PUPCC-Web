@@ -1,4 +1,5 @@
-import os, json
+import os
+import json
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -9,13 +10,11 @@ from googleapiclient.http import MediaIoBaseDownload
 SCOPE = ['https://www.googleapis.com/auth/spreadsheets']
 SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 
+# Load credentials from environment variable
+creds_json = os.getenv('CREDENTIALS')
 
 def authenticate():
     creds = None
-
-    if 'CREDENTIALS' in os.environ:
-        creds_json = json.loads(os.environ['CREDENTIALS'])
-
 
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file("token.json", SCOPE)
@@ -26,7 +25,7 @@ def authenticate():
         
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                creds_json, SCOPE
+                json.loads(creds_json), SCOPE
             )
             creds = flow.run_local_server(port=0)
 
