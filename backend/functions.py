@@ -12,8 +12,8 @@ SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 
 def authenticate():
     creds = None
-    print(os.path.exists('/etc/secrets/TOKEN'))
-    if os.path.exists('/etc/secrets/TOKEN'):
+    print(os.path.exists(os.path.abspath('/etc/secrets/TOKEN')))
+    if os.path.exists(os.path.abspath('/etc/secrets/TOKEN')):
         creds = Credentials.from_authorized_user_file("TOKEN", SCOPE)
 
     if not creds or not creds.valid:
