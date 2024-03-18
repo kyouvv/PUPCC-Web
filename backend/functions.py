@@ -10,35 +10,27 @@ from googleapiclient.http import MediaIoBaseDownload
 SCOPE = ['https://www.googleapis.com/auth/spreadsheets']
 SHEETS_ID = '1OZz81rKvDkIBsONz4W-Kxwnbh43y0X_pPh0DtDhJfXI'
 
-# Load credentials from environment variable
-
-
-def write_credentials_json():
-    with open('credentials.json', 'w') as outfile:
-        creds_json = os.getenv('CREDENTIALS')
-        print(creds_json)
-        json.dump(creds_json, outfile)
-
 def authenticate():
     creds = None
 
-    write_credentials_json()
-
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file("token.json", SCOPE)
+    if os.path.exists(os.path.abspath('/etc/secrets/TOKEN')):
+        with open(os.path.abspath('/etc/secrets/TOKEN'), 'r') as f:
+            data = f.read()
+            with open("token.json", "w") as token:
+                token.write(data.to_json())
+                creds = Credentials.from_authorized_user_file("token.json", SCOPE)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
-        
         else:
-            flow = InstalledAppFlow.from_client_config(
-    'credentials.json', SCOPE,
-)
+            flow = InstalledAppFlow.from_client_secrets_file(
+          "credentials.json", SCOPE
+      )
             creds = flow.run_local_server(port=0)
-
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
+    # Save the credentials for the next run
+    with open("token.json", "w") as token:
+      token.write(creds.to_json())
             
     return creds
 
@@ -93,3 +85,6 @@ def addOrg(name: str, description:str, social_link: str, image_link: str):
 
     except Exception as e:
         print("Execption: ", e)
+
+
+print(getOrgs())
