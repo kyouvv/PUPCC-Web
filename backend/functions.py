@@ -34,7 +34,6 @@ def authenticate():
         else:
             flow = InstalledAppFlow.from_client_config(
     'credentials.json', SCOPE,
-    prompt='consent'
 )
             creds = flow.run_local_server(port=0)
 
